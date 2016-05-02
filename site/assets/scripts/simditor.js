@@ -14,7 +14,7 @@
   }
 }(this, function ($, SimpleModule, simpleHotkeys, simpleUploader) {
 
-var AlignmentButton, BlockquoteButton, BoldButton, Button, Clipboard, CodeButton, CodePopover, ColorButton, FontScaleButton, Formatter, HrButton, ImageButton, ImagePopover, IndentButton, Indentation, InputManager, ItalicButton, Keystroke, LinkButton, LinkPopover, ListButton, OrderListButton, OutdentButton, Popover, Selection, Simditor, StrikethroughButton, TableButton, TitleButton, Toolbar, UnderlineButton, UndoManager, UnorderListButton, Util,
+var AlignmentButton, BlockquoteButton, BoldButton, Button, Clipboard, CodeButton, CodePopover, ColorButton, FontScaleButton, Formatter, HrButton, ImageButton, ImagePopover, IndentButton, Indentation, InputManager, ItalicButton, Keystroke, LinkButton, LinkPopover, ListButton, OrderListButton, OutdentButton, Popover, Selection, Simditor, StrikethroughButton, SubButton, SupButton, TableButton, TitleButton, Toolbar, UnderlineButton, UndoManager, UnorderListButton, Util,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty,
   indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
@@ -1889,7 +1889,7 @@ Toolbar = (function(superClass) {
       return;
     }
     if (!$.isArray(this.opts.toolbar)) {
-      this.opts.toolbar = ['bold', 'italic', 'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'code', '|', 'link', 'image', '|', 'indent', 'outdent'];
+      this.opts.toolbar = ['bold', 'italic', 'underline', 'strikethrough', 'sub', 'sup', '|', 'ol', 'ul', 'blockquote', 'code', '|', 'link', 'image', '|', 'indent', 'outdent'];
     }
     this._render();
     this.list.on('click', function(e) {
@@ -2679,8 +2679,8 @@ Simditor.i18n = {
     'linkText': '链接文字',
     'linkUrl': '链接地址',
     'linkTarget': '打开方式',
-    'openLinkInCurrentWindow': '在新窗口中打开',
-    'openLinkInNewWindow': '在当前窗口中打开',
+    'openLinkInCurrentWindow': '在当前窗口中打开',
+    'openLinkInNewWindow': '在新窗口中打开',
     'removeLink': '移除链接',
     'ol': '有序列表',
     'ul': '无序列表',
@@ -5574,6 +5574,78 @@ AlignmentButton = (function(superClass) {
 })(Button);
 
 Simditor.Toolbar.addButton(AlignmentButton);
+
+SupButton = (function(superClass) {
+  extend(SupButton, superClass);
+
+  function SupButton() {
+    return SupButton.__super__.constructor.apply(this, arguments);
+  }
+
+  SupButton.prototype.name = 'sup';
+
+  SupButton.prototype.icon = 'sup';
+
+  SupButton.prototype.htmlTag = 'sup';
+
+  SupButton.prototype.disableTag = 'pre,code';
+
+  SupButton.prototype._activeStatus = function() {
+    var active;
+    active = document.queryCommandState('superscript') === true;
+    this.setActive(active);
+    return this.active;
+  };
+
+  SupButton.prototype.command = function() {
+    document.execCommand('superscript');
+    if (!this.editor.util.support.oninput) {
+      this.editor.trigger('valuechanged');
+    }
+    return $(document).trigger('selectionchange');
+  };
+
+  return SupButton;
+
+})(Button);
+
+Simditor.Toolbar.addButton(SupButton);
+
+SubButton = (function(superClass) {
+  extend(SubButton, superClass);
+
+  function SubButton() {
+    return SubButton.__super__.constructor.apply(this, arguments);
+  }
+
+  SubButton.prototype.name = 'sub';
+
+  SubButton.prototype.icon = 'sub';
+
+  SubButton.prototype.htmlTag = 'sub';
+
+  SubButton.prototype.disableTag = 'pre';
+
+  SubButton.prototype._activeStatus = function() {
+    var active;
+    active = document.queryCommandState('subscript') === true;
+    this.setActive(active);
+    return this.active;
+  };
+
+  SubButton.prototype.command = function() {
+    document.execCommand('subscript');
+    if (!this.editor.util.support.oninput) {
+      this.editor.trigger('valuechanged');
+    }
+    return $(document).trigger('selectionchange');
+  };
+
+  return SubButton;
+
+})(Button);
+
+Simditor.Toolbar.addButton(SubButton);
 
 return Simditor;
 

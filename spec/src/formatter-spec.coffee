@@ -23,6 +23,7 @@ describe 'Simditor Formatter Module', ->
     $p4 = $('<div><article></article></div>')
     $p5 = $('<div><a href=""><img src="" alt="testImage"></a></div>')
     $p6 = $('<div><img src="" alt="" class="uploading"></div>')
+    $p7 = $('<div><p>test <br></p></div>')
 
     editor.formatter.cleanNode $p1.contents(), true
     editor.formatter.cleanNode $p2.contents(), true
@@ -30,6 +31,7 @@ describe 'Simditor Formatter Module', ->
     editor.formatter.cleanNode $p4.contents(), true
     editor.formatter.cleanNode $p5.contents(), true
     editor.formatter.cleanNode $p6.contents(), true
+    editor.formatter.cleanNode $p7.contents(), true
 
     expect($p1.html()).toBe('<p>this is a test</p>')
     expect($p2.html()).toBe('<p>this is a test</p>')
@@ -37,6 +39,7 @@ describe 'Simditor Formatter Module', ->
     expect($p4.html()).toBe('')
     expect($p5.html()).toBe('<img src="" alt="testImage">')
     expect($p6.html()).toBe('')
+    expect($p7.html()).toBe('test')
 
   it 'can format all direct children to block node', ->
     $p1 = editor.formatter.format $('<div><br/></div>')

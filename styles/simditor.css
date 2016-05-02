@@ -1,7 +1,7 @@
 /*!
 * Simditor v2.3.6
 * http://simditor.tower.im/
-* 2015-12-21
+* 2016-05-02
 */
 @font-face {
   font-family: 'Simditor';
@@ -143,6 +143,12 @@
   content: '\f01e';
 }
 
+@font-face {
+  font-family: 'FontAwesome';
+  src: url("./fonts/fontawesome-webfont.woff?v=4.6.1") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 .simditor {
   position: relative;
   border: 1px solid #c9d8db;
@@ -743,4 +749,14 @@
 .simditor .simditor-body img, .editor-style img {
   margin: 0 5px;
   vertical-align: middle;
+}
+
+.simditor-icon-sub:before {
+  font-family: 'FontAwesome';
+  content: '\f12c';
+}
+
+.simditor-icon-sup:before {
+  font-family: 'FontAwesome';
+  content: '\f12b';
 }

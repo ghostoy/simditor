@@ -121,8 +121,7 @@ class Formatter extends SimpleModule
 
   cleanNode: (node, recursive) ->
     $node = $(node)
-    return unless $node.length > 0
-
+    return unless $node.length > 0    
     if $node[0].nodeType == 3
       text = $node.text().replace(/(\r\n|\n|\r)/gm, '')
       if text

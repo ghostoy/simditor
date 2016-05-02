@@ -18,7 +18,7 @@ class Toolbar extends SimpleModule
     return unless @opts.toolbar
 
     unless $.isArray @opts.toolbar
-      @opts.toolbar = ['bold', 'italic', 'underline', 'strikethrough', '|',
+      @opts.toolbar = ['bold', 'italic', 'underline', 'strikethrough','sub','sup' ,'|',
         'ol', 'ul', 'blockquote', 'code', '|', 'link', 'image', '|',
         'indent', 'outdent']
 

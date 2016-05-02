@@ -41,6 +41,8 @@ module.exports = (grunt) ->
             'src/buttons/table.coffee'
             'src/buttons/strikethrough.coffee'
             'src/buttons/alignment.coffee'
+            'src/buttons/sup.coffee'
+            'src/buttons/sub.coffee'
           ]
       site:
         expand: true
@@ -105,7 +107,12 @@ module.exports = (grunt) ->
         files: [{
           src: 'styles/simditor.css',
           dest: 'site/assets/styles/simditor.css'
-        }]
+        },{
+          cwd:'styles/fonts',
+          src:'**',
+          dest:'site/assets/styles/fonts',
+          expand: true
+          }]
       scripts:
         files: [{
           src: 'vendor/bower/simple-module/lib/module.js',

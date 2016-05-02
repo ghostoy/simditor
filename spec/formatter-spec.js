@@ -19,25 +19,28 @@
       return expect($p3.html()).toBe('<a href="http://127.0.0.1:3000/test" rel="nofollow">http://127.0.0.1:3000/test</a>');
     });
     it('can clean forbidden tags and attributes and modify redundancy tags', function() {
-      var $p1, $p2, $p3, $p4, $p5, $p6;
+      var $p1, $p2, $p3, $p4, $p5, $p6, $p7;
       $p1 = $('<div><p>\r\nthis is a test</p></div>');
       $p2 = $('<div><p id="test">this is a test</p></div>');
       $p3 = $('<div><script>var x = 1;</script></div>');
       $p4 = $('<div><article></article></div>');
       $p5 = $('<div><a href=""><img src="" alt="testImage"></a></div>');
       $p6 = $('<div><img src="" alt="" class="uploading"></div>');
+      $p7 = $('<div><p>test <br></p></div>');
       editor.formatter.cleanNode($p1.contents(), true);
       editor.formatter.cleanNode($p2.contents(), true);
       editor.formatter.cleanNode($p3.contents(), true);
       editor.formatter.cleanNode($p4.contents(), true);
       editor.formatter.cleanNode($p5.contents(), true);
       editor.formatter.cleanNode($p6.contents(), true);
+      editor.formatter.cleanNode($p7.contents(), true);
       expect($p1.html()).toBe('<p>this is a test</p>');
       expect($p2.html()).toBe('<p>this is a test</p>');
       expect($p3.html()).toBe('var x = 1;');
       expect($p4.html()).toBe('');
       expect($p5.html()).toBe('<img src="" alt="testImage">');
-      return expect($p6.html()).toBe('');
+      expect($p6.html()).toBe('');
+      return expect($p7.html()).toBe('test');
     });
     it('can format all direct children to block node', function() {
       var $p1, $p2, $p3, $p4;
